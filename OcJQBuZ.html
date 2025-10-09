@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Virelia: Echoes of the Hollow Bloom - A cinematic survival adventure game by Pookie Studios. Experience an epic journey across jungle, city, and space.">
+    <title>Virelia - Echoes of the Hollow Bloom | Pookie Studios</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Zentry';
+            src: url('data:font/woff2;base64,') format('woff2');
+            font-weight: 900;
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            background-color: #000;
+        }
+
+        .special-font {
+            font-family: 'Zentry', 'Inter', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .font-general {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-robert-regular {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
+
+        .hero-heading {
+            font-size: clamp(3rem, 12vw, 12rem);
+            line-height: 0.9;
+        }
+
+        .animated-title {
+            font-size: clamp(2rem, 6vw, 6rem);
+            line-height: 1.1;
+        }
+
+        .animated-word {
+            display: inline-block;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .animated-word:nth-child(1) { animation-delay: 0.1s; }
+        .animated-word:nth-child(2) { animation-delay: 0.2s; }
+        .animated-word:nth-child(3) { animation-delay: 0.3s; }
+        .animated-word:nth-child(4) { animation-delay: 0.4s; }
+        .animated-word:nth-child(5) { animation-delay: 0.5s; }
+        .animated-word:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        .nav-hover-btn {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            transition: opacity 0.3s;
+        }
+
+        .nav-hover-btn:hover {
+            opacity: 0.75;
+        }
+
+        .indicator-line {
+            width: 2px;
+            height: 16px;
+            background: white;
+            margin: 0 2px;
+            animation: audioWave 1s infinite ease-in-out;
+        }
+
+        .indicator-line:nth-child(1) { animation-delay: 0s; }
+        .indicator-line:nth-child(2) { animation-delay: 0.2s; }
+        .indicator-line:nth-child(3) { animation-delay: 0.4s; }
+        .indicator-line:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes audioWave {
+            0%, 100% { height: 8px; }
+            50% { height: 20px; }
+        }
+
+        .mask-clip-path {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bento-tilt_1, .bento-tilt_2 {
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            border-radius: 0.375rem;
+        }
+
+        .bento-tilt_1:hover, .bento-tilt_2:hover {
+            transform: scale(1.02);
+        }
+
+        .border-hsla {
+            border: 1px solid hsla(0, 0%, 100%, 0.1);
+        }
+
+        .bento-title {
+            font-size: clamp(1.5rem, 4vw, 4rem);
+            line-height: 1;
+        }
+
+        .about-subtext {
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .story-img-container {
+            position: relative;
+            width: 100%;
+            min-height: 60vh;
+            overflow: hidden;
+        }
+
+        .story-img-mask {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .story-img-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .story-img-content img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 1rem;
+        }
+
+        .contact-clip-path-1, .contact-clip-path-2 {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+        }
+
+        .sword-man-clip-path {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mix-blend-difference {
+            mix-blend-mode: difference;
+        }
+
+        .pointer-events-none {
+            pointer-events: none;
+        }
+
+        .game-feature {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .game-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .trailer-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trailer-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10000;
+            transition: transform 0.3s ease;
+        }
+
+        .close-modal:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm">
+        <nav class="flex w-full items-center justify-between p-4 max-w-screen-2xl mx-auto">
+            <div class="flex items-center gap-7">
+                <a href="#hero" class="transition hover:opacity-75" aria-label="Virelia Home">
+                    <img alt="Pookie Studios Logo" class="w-10 h-10" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238b5cf6;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2310b981;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23grad1)'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EP%3C/text%3E%3C/svg%3E">
+                </a>
+                <a href="https://pookiez.framer.ai" target="_blank" class="group relative z-10 w-fit cursor-pointer overflow-hidden rounded-full px-7 py-3 text-black transition hover:opacity-75 bg-gradient-to-r from-blue-400 to-emerald-400 hidden md:flex items-center justify-center gap-2" aria-label="Download Game">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4h14v2H5v-2z"></path>
+                    </svg>
+                    <p class="relative inline-flex overflow-hidden font-general text-xs uppercase font-bold">Download Game</p>
+                </a>
+            </div>
+
+            <div class="flex h-full items-center">
+                <div class="hidden md:block">
+                    <a href="#hero" class="nav-hover-btn">Trailer</a>
+                    <a href="#about" class="nav-hover-btn">About</a>
+                    <a href="#nexus" class="nav-hover-btn">Characters</a>
+                    <a href="#story" class="nav-hover-btn">Story</a>
+                    <a href="#contact" class="nav-hover-btn">Contact</a>
+                </div>
+
+                <button class="ml-10 flex items-center space-x-1 p-2 transition hover:opacity-75" title="Toggle Audio" id="audio-toggle" aria-label="Toggle Background Audio">
+                    <div class="indicator-line"></div>
+                    <div class="indicator-line"></div>
+                    <div class="indicator-line"></div>
+                    <div class="indicator-line"></div>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative w-full h-screen overflow-hidden">
+        <!-- Background Video Placeholder -->
+        <div class="absolute inset-0 w-full h-full" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #134e4a 100%);">
+            <div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='none'/%3E%3Cpath d='M50 0L100 50L50 100L0 50z' fill='%2310b981' opacity='0.1'/%3E%3C/svg%3E'); background-size: 50px 50px; animation: moveBackground 20s linear infinite;"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="absolute left-0 top-0 z-40 w-full h-full">
+            <div class="mt-24 px-5 sm:px-10 pt-20">
+                <h1 class="special-font hero-heading text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400">Vire<b>l</b>ia</h1>
+                <p class="mb-5 max-w-md text-blue-100 text-xl md:text-2xl font-light tracking-wide">
+                    Echoes of the <br>Hollow Bloom
+                </p>
+                <p class="mb-8 max-w-lg text-gray-300 text-sm md:text-base">
+                    Survive the jungle. Navigate the divided city. Reach for the stars. <br>
+                    One world. Three chapters. Infinite possibilities.
+                </p>
+                <button id="watch-trailer" class="group relative z-10 w-fit cursor-pointer overflow-hidden rounded-full px-8 py-4 text-black transition hover:scale-105 bg-gradient-to-r from-yellow-300 to-amber-400 flex items-center justify-center gap-2 shadow-lg shadow-yellow-500/50" aria-label="Watch Trailer">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                    <p class="relative inline-flex overflow-hidden font-general text-sm uppercase font-bold">Watch Trailer</p>
+                </button>
+            </div>
+        </div>
+
+        <style>
+            @keyframes moveBackground {
+                0% { background-position: 0 0; }
+                100% { background-position: 100px 100px; }
+            }
+        </style>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="relative w-full bg-gradient-to-b from-slate-900 to-slate-800 text-white py-20">
+        <div class="relative mb-8 mt-20 flex flex-col items-center gap-5 px-5">
+            <p class="font-general text-sm uppercase md:text-xs tracking-widest text-emerald-400">Welcome to Pookie Studios</p>
+
+            <div class="animated-title mt-5 text-white text-center">
+                <h2 class="flex-center max-w-full flex-wrap gap-2 px-10 md:gap-3">
+                    <span class="animated-word">Discover</span>
+                    <span class="animated-word">the</span>
+                    <span class="animated-word">most</span>
+                    <span class="animated-word">immersive</span>
+                </h2>
+                <h2 class="flex-center max-w-full flex-wrap gap-2 px-10 md:gap-3">
+                    <span class="animated-word">survival</span>
+                    <span class="animated-word">adventure</span>
+                </h2>
+            </div>
+
+            <div class="about-subtext text-gray-300 space-y-3 mt-8">
+                <p class="text-lg">Experience a multi-layered narrative that spans three interconnected worlds</p>
+                <p class="text-base opacity-80">From the depths of the jungle to the heights of space — your journey begins now</p>
+            </div>
+        </div>
+
+        <!-- Game Features Grid -->
+        <div class="max-w-7xl mx-auto px-5 md:px-10 mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="game-feature">
+                <div class="text-4xl mb-4">🌿</div>
+                <h3 class="text-xl font-bold mb-3 text-emerald-400">Jungle Survival</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    Navigate through dense rainforests where every decision matters. Hunt, gather, and craft your way through nature's most unforgiving challenges.
+                </p>
+            </div>
+
+            <div class="game-feature">
+                <div class="text-4xl mb-4">🏙️</div>
+                <h3 class="text-xl font-bold mb-3 text-blue-400">Urban Discovery</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    Explore a divided metropolis where factions clash and secrets lurk in every shadow. Choose your alliances wisely in this concrete jungle.
+                </p>
+            </div>
+
+            <div class="game-feature">
+                <div class="text-4xl mb-4">🌌</div>
+                <h3 class="text-xl font-bold mb-3 text-purple-400">Cosmic Journey</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    Venture beyond Earth's atmosphere into the vast unknown. Discover ancient civilizations and unravel the mysteries of the Hollow Bloom.
+                </p>
+            </div>
+        </div>
+
+        <!-- About Image -->
+        <div class="w-full max-w-7xl mx-auto px-5 md:px-10 mt-20" id="clip">
+            <div class="mask-clip-path about-image rounded-2xl overflow-hidden shadow-2xl" style="height: 60vh;">
+                <div class="w-full h-full bg-gradient-to-br from-emerald-900 via-teal-800 to-blue-900 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.3) 0%, transparent 50%);"></div>
+                    <div class="text-center z-10 p-10">
+                        <h3 class="text-5xl font-bold mb-4 text-white">Built in Unreal Engine 5</h3>
+                        <p class="text-xl text-gray-200 max-w-2xl mx-auto">
+                            Experience next-gen graphics powered by Nanite, Lumen, and cutting-edge technology that brings Virelia's world to life with unprecedented realism.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Characters/Nexus Section -->
+    <section id="nexus" class="bg-black pb-52">
+        <div class="container mx-auto px-3 md:px-10">
+            <div class="px-5 py-32">
+                <p class="font-general text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400 mb-6 font-bold">Meet the Survivors</p>
+                <p class="max-w-2xl font-general text-lg text-gray-400 leading-relaxed">
+                    Three heroes. Three journeys. One destiny. Each character brings unique skills, perspectives, and stories to the ever-evolving narrative of Virelia. Their paths will cross, diverge, and ultimately converge in ways you never expected.
+                </p>
+            </div>
+
+            <!-- Main Feature Video -->
+            <div class="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-2xl md:h-[65vh] shadow-2xl">
+                <article class="relative w-full h-full">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-emerald-900">
+                        <div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Ccircle cx='30' cy='30' r='20' stroke='%2310b981' stroke-width='1' fill='none' opacity='0.3'/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
+                    </div>
+                    <div class="relative z-10 flex h-full flex-col justify-between p-8 md:p-12 text-white">
+                        <div>
+                            <h3 class="bento-title special-font mb-6">Vire<b>l</b>ia</h3>
+                            <p class="text-xl md:text-2xl mt-3 max-w-2xl leading-relaxed font-light">
+                                A cinematic survival adventure that seamlessly blends jungle struggles, urban conflicts, and cosmic mysteries into one unforgettable odyssey of resilience, hope, and discovery.
+                            </p>
+                        </div>
+                        <div class="flex gap-4 flex-wrap">
+                            <span class="px-4 py-2 bg-emerald-500/20 border border-emerald-500/50 rounded-full text-sm">Survival</span>
+                            <span class="px-4 py-2 bg-blue-500/20 border border-blue-500/50 rounded-full text-sm">Action-Adventure</span>
+                            <span class="px-4 py-2 bg-purple-500/20 border border-purple-500/50 rounded-full text-sm">Story-Driven</span>
+                            <span class="px-4 py-2 bg-yellow-500/20 border border-yellow-500/50 rounded-full text-sm">Single Player</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Character Grid -->
+            <div class="grid h-auto md:h-auto grid-cols-1 md:grid-cols-2 grid-rows-auto gap-7">
+                <!-- Karan Character Card -->
+                <div class="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2 min-h-[400px]">
+                    <article class="relative w-full h-full">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-900 via-emerald-800 to-teal-900">
+                            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M20 0L40 20L20 40L0 20z' fill='%2310b981' opacity='0.05'/%3E%3C/svg%3E'); background-size: 40px 40px; opacity: 0.3;"></div>
+                        </div>
+                        <div class="relative z-10 flex h-full flex-col justify-between p-8 text-white">
+                            <div>
+                                <h3 class="bento-title special-font mb-4 text-emerald-300">Kar<b>a</b>n</h3>
+                                <p class="text-lg md:text-xl mt-3 max-w-md leading-relaxed">
+                                    The Jungle Guardian. A skilled survivalist who knows every secret of the rainforest. Karan's journey begins in the wilderness, where nature is both friend and foe. Master of crafting, hunting, and reading the signs of the wild.
+                                </p>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-emerald-400">⚔️</span>
+                                    <span class="text-sm">Melee Combat Specialist</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-emerald-400">🌿</span>
+                                    <span class="text-sm">Expert Tracker & Hunter</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-emerald-400">🔥</span>
+                                    <span class="text-sm">Survival Skills Maxed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Oedn Character Card -->
+                <div class="bento-tilt_1 row-span-1 md:ms-32 md:col-span-1 min-h-[400px]">
+                    <article class="relative w-full h-full">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900">
+                            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width='50' height='50' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='50' height='50' fill='none'/%3E%3Ccircle cx='25' cy='25' r='15' stroke='%233b82f6' stroke-width='1' fill='none' opacity='0.1'/%3E%3C/svg%3E'); background-size: 50px 50px; opacity: 0.4;"></div>
+                        </div>
+                        <div class="relative z-10 flex h-full flex-col justify-between p-8 text-white">
+                            <div>
+                                <h3 class="bento-title special-font mb-4 text-blue-300">O<b>e</b>dn</h3>
+                                <p class="text-lg md:text-xl mt-3 max-w-md leading-relaxed">
+                                    The Urban Tactician. Born in the divided city, Oedn navigates faction politics and underground networks with cunning precision. A master of stealth, technology, and strategic thinking.
+                                </p>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-blue-400">🎯</span>
+                                    <span class="text-sm">Stealth & Infiltration</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-blue-400">💻</span>
+                                    <span class="text-sm">Tech Hacking Expert</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-blue-400">🗣️</span>
+                                    <span class="text-sm">Negotiation & Diplomacy</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Aelly Character Card -->
+                <div class="bento-tilt_1 md:me-14 md:col-span-1 min-h-[400px]">
+                    <article class="relative w-full h-full">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-900 via-pink-800 to-violet-900">
+                            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width='45' height='45' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h45v45H0z' fill='none'/%3E%3Cpath d='M22.5 5 L40 22.5 L22.5 40 L5 22.5 Z' stroke='%23a78bfa' stroke-width='1' fill='none' opacity='0.15'/%3E%3C/svg%3E'); background-size: 45px 45px; opacity: 0.5;"></div>
+                        </div>
+                        <div class="relative z-10 flex h-full flex-col justify-between p-8 text-white">
+                            <div>
+                                <h3 class="bento-title special-font mb-4 text-purple-300">A<b>e</b>lly</h3>
+                                <p class="text-lg md:text-xl mt-3 max-w-md leading-relaxed">
+                                    The Cosmic Explorer. A scientist and pilot who ventures beyond Earth to uncover the truth about the Hollow Bloom. Aelly bridges the gap between humanity's past and its stellar future.
+                                </p>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-purple-400">🚀</span>
+                                    <span class="text-sm">Spaceflight & Navigation</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-purple-400">🔬</span>
+                                    <span class="text-sm">Scientific Analysis</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-purple-400">⚡</span>
+                                    <span class="text-sm">Energy Manipulation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Coming Soon Card -->
+                <div class="bento-tilt_2 min-h-[300px]">
+                    <div class="flex h-full flex-col justify-between bg-gradient-to-br from-violet-400 to-purple-500 p-8 rounded-2xl relative overflow-hidden">
+                        <div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E'); background-size: 100px 100px;"></div>
+                        <h3 class="bento-title special-font max-w-md text-white relative z-10">M<b>o</b>re Characters<br>Co<b>m</b>ing So<b>o</b>n!</h3>
+                        <div class="relative z-10">
+                            <p class="text-white text-lg mb-6">The world of Virelia is vast. New allies and adversaries await discovery.</p>
+                            <svg stroke="white" fill="white" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" class="scale-[4] opacity-50" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10.368 19.102c.349 1.049 1.011 1.086 1.478.086l5.309-11.375c.467-1.002.034-1.434-.967-.967l-11.376 5.308c-1.001.467-.963 1.129.085 1.479l4.103 1.367 1.368 4.102z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gameplay Feature Card -->
+                <div class="bento-tilt_2 min-h-[300px]">
+                    <div class="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden relative">
+                        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.2) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);"></div>
+                        <div class="relative z-10 p-8 h-full flex flex-col justify-center">
+                            <h4 class="text-3xl font-bold mb-4 text-white">Dynamic Weather System</h4>
+                            <p class="text-gray-300 text-lg mb-6">
+                                Experience real-time environmental changes that affect gameplay, from torrential jungle rains to cosmic radiation storms.
+                            </p>
+                            <div class="flex gap-3">
+                                <span class="text-3xl">🌧️</span>
+                                <span class="text-3xl">⛈️</span>
+                                <span class="text-3xl">🌪️</span>
+                                <span class="text-3xl">☄️</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="relative w-full bg-gradient-to-b from-slate-900 via-gray-900 to-black py-20">
+        <div class="relative w-full min-h-screen">
+            <div class="animated-title mt-5 pointer-events-none mix-blend-difference relative z-10 py-10">
+                <h2 class="flex-center max-w-full flex-wrap gap-2 px-10 md:gap-3">
+                    <span class="animated-word">The</span>
+                    <span class="animated-word">Jou<b>r</b>ney</span>
+                    <span class="animated-word">of</span>
+                    <span class="animated-word">a</span>
+                </h2>
+                <h2 class="flex-center max-w-full flex-wrap gap-2 px-10 md:gap-3">
+                    <span class="animated-word">Divided</span>
+                    <span class="animated-word">Wor<b>ld</b></span>
+                </h2>
+            </div>
+
+            <!-- Story Content -->
+            <div class="max-w-5xl mx-auto px-5 md:px-10 mt-16 space-y-12">
+                <div class="text-center space-y-6">
+                    <h3 class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">
+                        What is the Hollow Bloom?
+                    </h3>
+                    <p class="text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
+                        A mysterious phenomenon that appeared simultaneously across three locations: deep in the Amazon rainforest, beneath a war-torn megacity, and orbiting a distant exoplanet. Scientists call it an anomaly. Survivors call it a curse. But those who've touched it... they call it salvation.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 mt-16">
+                    <div class="bg-gradient-to-br from-emerald-900/50 to-emerald-800/30 p-6 rounded-xl border border-emerald-500/30">
+                        <h4 class="text-2xl font-bold mb-3 text-emerald-400">Chapter 1: Origins</h4>
+                        <p class="text-gray-300 leading-relaxed">
+                            Karan discovers the first Hollow Bloom deep in the jungle, where ancient civilizations left warnings carved in stone. Survival becomes secondary to understanding.
+                        </p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-blue-900/50 to-blue-800/30 p-6 rounded-xl border border-blue-500/30">
+                        <h4 class="text-2xl font-bold mb-3 text-blue-400">Chapter 2: Convergence</h4>
+                        <p class="text-gray-300 leading-relaxed">
+                            Oedn uncovers corporate conspiracies in the city, where factions war over access to the Bloom's power. Trust no one. Question everything.
+                        </p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-purple-900/50 to-purple-800/30 p-6 rounded-xl border border-purple-500/30">
+                        <h4 class="text-2xl font-bold mb-3 text-purple-400">Chapter 3: Ascension</h4>
+                        <p class="text-gray-300 leading-relaxed">
+                            Aelly ventures to the stars, discovering that the Bloom connects worlds across dimensions. Humanity's fate hangs in the balance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Story Image -->
+            <div class="story-img-container px-5 md:px-10 mt-20">
+                <div class="story-img-mask">
+                    <div class="story-img-content">
+                        <div class="w-full max-w-4xl bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-900 rounded-2xl p-12 shadow-2xl">
+                            <div class="text-center space-y-6">
+                                <div class="text-6xl mb-6">🌸</div>
+                                <h3 class="text-4xl md:text-5xl font-bold text-white">The Hollow Bloom</h3>
+                                <p class="text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed">
+                                    "A flower that doesn't bloom, yet radiates life. A void that isn't empty, yet consumes everything. It is the beginning and the end, the question and the answer."
+                                </p>
+                                <p class="text-sm text-gray-400 italic">— Ancient inscription, location unknown</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="my-20 min-h-96 w-full px-5 md:px-10">
+        <div class="relative rounded-2xl bg-gradient-to-br from-slate-900 to-black py-24 text-white overflow-hidden border border-gray-800">
+            <!-- Left Background Images -->
+            <div class="absolute -left-20 top-0 hidden h-full w-72 overflow-hidden sm:block lg:left-20 lg:w-96 opacity-30">
+                <div class="contact-clip-path-1 mb-10">
+                    <div class="w-full h-64 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg"></div>
+                </div>
+                <div class="contact-clip-path-2 lg:translate-y-40 translate-y-60">
+                    <div class="w-full h-64 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-lg"></div>
+                </div>
+            </div>
+
+            <!-- Right Character Image -->
+            <div class="absolute -top-40 left-20 w-60 sm:top-1/2 md:left-auto md:right-10 lg:top-20 lg:w-80 opacity-20">
+                <div class="sword-man-clip-path md:scale-125">
+                    <div class="w-full h-96 bg-gradient-to-b from-emerald-500 to-blue-500 rounded-lg"></div>
+                </div>
+            </div>
+
+            <!-- Contact Content -->
+            <div class="flex flex-col items-center text-center relative z-10 px-5">
+                <p class="font-general text-xs uppercase tracking-widest mb-6 text-emerald-400">Join Pookie Studios</p>
+                <h2 class="special-font w-full text-4xl md:text-5xl lg:text-7xl leading-tight mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400">
+                    Let's B<b>u</b>ild the<br> New Era of <br> G<b>a</b>ming T<b>o</b>gether
+                </h2>
+                <p class="max-w-2xl text-gray-400 text-lg mb-10">
+                    Be part of the development journey. Get exclusive updates, behind-the-scenes content, and early access to Virelia: Echoes of the Hollow Bloom.
+                </p>
+                <div class="flex gap-4 flex-wrap justify-center">
+                    <a href="mailto:pgpartyop1@gmail.com" class="group relative z-10 w-fit overflow-hidden rounded-full bg-gradient-to-r from-violet-500 to-purple-600 px-8 py-4 text-white transition hover:scale-105 cursor-pointer shadow-lg shadow-purple-500/50" aria-label="Contact Pookie Studios">
+                        <p class="relative inline-flex overflow-hidden font-general text-sm uppercase font-bold">Contact Us</p>
+                    </a>
+                    <a href="https://pookiez.framer.ai" target="_blank" class="group relative z-10 w-fit overflow-hidden rounded-full bg-white/10 border-2 border-white/30 px-8 py-4 text-white transition hover:bg-white/20 cursor-pointer" aria-label="Visit Pookie Studios">
+                        <p class="relative inline-flex overflow-hidden font-general text-sm uppercase font-bold">Visit Studio</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-400 py-12 px-5 md:px-10 border-t border-gray-800">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-lg">Pookie Studios</h4>
+                    <p class="text-sm leading-relaxed">
+                        Creating high-quality games and interactive experiences using Unreal Engine. Blending innovative technology with imaginative storytelling.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-lg">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="#hero" class="block hover:text-white transition text-sm">Home</a>
+                        <a href="#about" class="block hover:text-white transition text-sm">About</a>
+                        <a href="#nexus" class="block hover:text-white transition text-sm">Characters</a>
+                        <a href="#story" class="block hover:text-white transition text-sm">Story</a>
+                        <a href="https://pookiez.framer.ai" target="_blank" class="block hover:text-white transition text-sm">Studio Website</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-lg">Connect</h4>
+                    <div class="space-y-2">
+                        <p class="text-sm">Email: pgpartyop1@gmail.com</p>
+                        <p class="text-sm">Platform: Unreal Engine 5.6</p>
+                        <p class="text-sm">Status: In Development</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-5 pt-8 border-t border-gray-800">
+                <div class="text-center md:text-left">
+                    <p class="font-general text-sm">&copy; 2025 Pookie Studios. All rights reserved.</p>
+                </div>
+                <div class="flex gap-5 text-sm">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                    <a href="#contact" class="hover:text-white transition">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Trailer Modal -->
+    <div id="trailer-modal" class="trailer-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <div class="w-full h-full bg-gradient-to-br from-purple-900 via-blue-900 to-emerald-900 flex items-center justify-center">
+                <div class="text-center p-10">
+                    <div class="text-6xl mb-6">🎬</div>
+                    <h3 class="text-4xl font-bold mb-4 text-white">Coming Soon</h3>
+                    <p class="text-xl text-gray-200 mb-6">The official Virelia trailer is in production!</p>
+                    <p class="text-gray-400">Follow Pookie Studios for updates on the release.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Audio Toggle (placeholder - no actual audio file)
+        const audioToggle = document.getElementById('audio-toggle');
+        let isPlaying = false;
+
+        audioToggle.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            audioToggle.style.opacity = isPlaying ? '1' : '0.5';
+        });
+
+        // Trailer Modal
+        const watchTrailerBtn = document.getElementById('watch-trailer');
+        const trailerModal = document.getElementById('trailer-modal');
+        const closeModal = document.getElementById('close-modal');
+
+        watchTrailerBtn.addEventListener('click', () => {
+            trailerModal.classList.add('active');
+        });
+
+        closeModal.addEventListener('click', () => {
+            trailerModal.classList.remove('active');
+        });
+
+        trailerModal.addEventListener('click', (e) => {
+            if (e.target === trailerModal) {
+                trailerModal.classList.remove('active');
+            }
+        });
+
+        // Smooth scroll with header offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observeElements = document.querySelectorAll('.animated-word, .game-feature');
+        const elementObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observeElements.forEach(el => elementObserver.observe(el));
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('#hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
